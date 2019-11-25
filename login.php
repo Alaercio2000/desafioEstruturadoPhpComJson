@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if ($_SESSION['id']) {
+    header("Location: index.php");
+}else {
+    
+}
 
 require('functions/functions.php');
 
@@ -23,15 +30,16 @@ if ($_POST) {
     }
 
     if ($erroEmail == false && $erroSenha == false) {
-        $status = loginUser($email, $senha);;
+        $id = loginUser($email, $senha);
 
-        if ($status == true) {
-            $erroLogin = false;
+        if (!empty($id)) {
+            $_SESSION['id'] = $id;
             header("Location: index.php");
-        } else {
+        }else{
             $erroLogin = true;
         }
     }
+    
 }
 
 ?>

@@ -45,9 +45,8 @@ function loginUser ($email , $senha){
     $createdUsers = loadUsers();
 
     foreach($createdUsers as $users){
-        if ($users['email'] == "$email" && password_verify($senha , $users['senha']) == true) {
-            $_SESSION['id'] = $users['id'];
-            return true;
+        if ($users['email'] == $email && password_verify($senha , $users['senha'])) {
+            return $users['id'];
         }
     }
 }
