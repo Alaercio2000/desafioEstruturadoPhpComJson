@@ -1,3 +1,41 @@
+<?php
+
+require('functions/functions.php');
+
+$erroLogin = false;
+$erroEmail = false;
+$erroSenha = false;
+
+if ($_POST) {
+
+    if (!empty($_POST['email-login'])) {
+        $erroEmail = false;
+        $email = $_POST['email-login'];
+    } else {
+        $erroEmail = true;
+    }
+
+    if (strlen($_POST['senha-login']) > 5) {
+        $erroSenha = false;
+        $senha = $_POST['senha-login'];
+    } else {
+        $erroSenha = true;
+    }
+
+    if ($erroEmail == false && $erroSenha == false) {
+        $status = loginUser($email, $senha);;
+
+        if ($status == true) {
+            $erroLogin = false;
+            header("Location: index.php");
+        } else {
+            $erroLogin = true;
+        }
+    }
+}
+
+?>
+
 <!doctype html>
 <html lang="pt-br">
 
@@ -17,19 +55,23 @@
                 <form method="post">
                     <div class="form-group">
                         <label for="email" class="pl-2">Email</label>
-                        <input type="email" class="form-control" name="email-login" id="email" placeholder="Digite seu email">
+                        <input type="email" class="form-control <?= ($erroEmail === true) ? "is-invalid" : ""; ?>" name="email-login" id="email" placeholder="Digite seu email">
                         <div class="invalid-feedback pl-2">
                             Email invalido
                         </div>
                     </div>
-                </form>
-                <form method="post">
                     <div class="form-group">
                         <label for="senha" class="pl-2">Senha</label>
-                        <input type="password" class="form-control" name="senha-login" id="senha" placeholder="Digite seu email">
+                        <input type="password" class="form-control <?= ($erroSenha === true) ? "is-invalid" : ""; ?>" name="senha-login" id="senha" placeholder="Digite seu email">
                         <div class="invalid-feedback pl-2">
                             Senha invalida
                         </div>
+                    </div>
+                    <div class="d-none alert alert-danger alert-dismissible fade show <?= ($erroLogin === true) ? "d-block" : "" ?>" role="alert">
+                        Email ou senha invalido
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary w-100 mt-3">Entrar</button>

@@ -47,7 +47,7 @@ function loginUser ($email , $senha){
     foreach($createdUsers as $users){
         if ($users['email'] == "$email" && password_verify($senha , $users['senha']) == true) {
             $_SESSION['id'] = $users['id'];
-            header("Location: dashboad.php")
+            return true;
         }
     }
 }
