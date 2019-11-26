@@ -21,7 +21,7 @@ if ($_POST) {
         $erroSenha = true;
     }
 
-    if ($erroEmail == false && $erroSenha == false) {
+    if (!$erroEmail && !$erroSenha) {
 
         $email = $_POST['email-login'];
         $senha = $_POST['senha-login'];
@@ -49,16 +49,16 @@ require("header/header.php");
                 <form method="post">
                     <div class="form-group">
                         <label for="email" class="pl-2">Email</label>
-                        <input type="email" class="form-control <?= ($erroEmail === true) ? "is-invalid" : ""; ?>" name="email-login" id="email" placeholder="Digite seu email">
+                        <input required type="email" class="form-control <?= ($erroEmail === true) ? "is-invalid" : ""; ?>" name="email-login" id="email" placeholder="Digite seu email">
                         <div class="invalid-feedback pl-2">
                             Email invalido
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="senha" class="pl-2">Senha</label>
-                        <input type="password" class="form-control <?= ($erroSenha === true) ? "is-invalid" : ""; ?>" name="senha-login" id="senha" placeholder="Digite seu email">
+                        <input required type="password" class="form-control <?= ($erroSenha === true) ? "is-invalid" : ""; ?>" name="senha-login" id="senha" placeholder="Digite seu email">
                         <div class="invalid-feedback pl-2">
-                            Senha invalida
+                            Senha deve ter mais de 6 caracteres
                         </div>
                     </div>
                     <div class="d-none alert alert-danger alert-dismissible fade show <?= ($erroLogin === true) ? "d-block" : "" ?>" role="alert">

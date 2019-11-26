@@ -1,5 +1,7 @@
 <?php
 session_start();
+require("functions/functions.php");
+
 $erroNome = false;
 $erroPreco = false;
 $erroImg = false;
@@ -13,12 +15,28 @@ if (!empty($_POST)) {
     if (empty($_POST['preco'])) {
         $erroPreco = true;
     }
-    if (empty($_FILES['imagem']['tmp_name'])) {
+    if (($_FILES['imagem']['error']) != 0) {
         $erroImg = true;
+    }
+
+    if (!empty($_POST['descricao'])) {
+        $descricao = $_POST['descricao'];
+    }else{
+        $descricao = "";
+    }
+
+    if (!$erroNome && !$erroPreco && !$erroImg) {
+        $nomeImg = base64_encode(rand(0,9999)) . $_FILES['imagem']['name'];
+
+        move_uploaded_file($_FILES['imagem']['tmp_name'] , 'img/'.$nomeImg );
+        $nome = $_POST['nome'];
+        $preco = $_POST['preco'];
+
+        newProduct($nome  , $preco , $nomeImg , $descricao);
+        header("Location: index.php");
     }
 }
 
-require("functions/functions.php");
 
 require("header/header.php");
 ?>
@@ -55,10 +73,15 @@ require("header/header.php");
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <button type="submit" class="btn btn-secondary w-100 mt-3">Cadastrar</button>
+            <button type="submit" class="btn btn-secondary w-100 my-3">Cadastrar</button>
         </form>
     </div>
 </div>
 
 
 <?php require("footer/footer.php") ?>
+<style>
+    #rodape{
+        position: relative;
+    }
+</style>

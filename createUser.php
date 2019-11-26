@@ -23,7 +23,7 @@ if ($_POST) {
         $erroSenha = true;
     }
 
-    if ($erroNome == false && $erroEmail == false && $erroSenha == false) {
+    if (!$erroNome && !$erroEmail && !$erroSenha) {
         $nome = $_POST['nome-cadastro'];
         $email = $_POST['email-cadastro'];
         $senha = $_POST['senha-cadastro'];
