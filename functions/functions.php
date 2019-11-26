@@ -5,7 +5,7 @@
 define('ARQUSER' , './json/users.json');
 define('ARQPROD' , './json/products.json');
 
-// CARREGAR O ARQUIVO JSON
+// CARREGAR O ARQUIVO JSON USERS
 
 function loadUsers (){
     $usersJson = file_get_contents(ARQUSER);
@@ -50,3 +50,17 @@ function loginUser ($email , $senha){
         }
     }
 }
+
+
+// FUNCTION IN PRODUCTS
+
+// CARREGAR O ARQUIVO JSON PRODUCTS
+function loadProducts (){
+    $productsJson = file_get_contents(ARQPROD);
+
+    return  json_decode($productsJson , true);
+}
+
+// FUNCTION PARA CADASTRAR PRODUTO
+
+
