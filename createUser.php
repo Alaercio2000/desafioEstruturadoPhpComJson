@@ -5,12 +5,16 @@ session_start();
 require("functions/functions.php");
 
 $erroEmail = false;
+$erroEmailRep = false;
 $erroSenha = false;
 $erroNome = false;
-
+$erroSenhaConf = false;
+$check = false;
 
 if ($_POST) {
-    
+
+    $checkEmail = loadUsers();
+
     if (empty($_POST['nome-cadastro'])) {
         $erroNome = true;
     }
@@ -23,7 +27,20 @@ if ($_POST) {
         $erroSenha = true;
     }
 
-    if (!$erroNome && !$erroEmail && !$erroSenha) {
+    if ($_POST['senha-cadastro'] != $_POST['senha-cadastro-conf']) {
+        $erroSenhaConf = true;
+    }
+
+    if (!$erroEmail) {
+        $check =  checkEmail($_POST['email-cadastro']);
+    }
+
+    if ($check) {
+        $erroEmailRep = true;
+    }
+
+
+    if (!$erroNome && !$erroEmail && !$erroSenha && !$erroSenhaConf && !$erroEmailRep) {
         $nome = $_POST['nome-cadastro'];
         $email = $_POST['email-cadastro'];
         $senha = $_POST['senha-cadastro'];
@@ -43,23 +60,37 @@ require("header/header.php");
 
                 <div class="form-group">
                     <label for="nome" class="pl-2">Nome</label>
-                    <input required type="nome" class="form-control <?= ($erroNome === true) ? "is-invalid" : ""; ?>" name="nome-cadastro" id="nome" placeholder="Digite seu nome">
+                    <input required type="nome" class="form-control <?= ($erroNome) ? "is-invalid" : ""; ?>" name="nome-cadastro" id="nome" placeholder="Digite seu nome">
                     <div class="invalid-feedback pl-2">
                         Nome invalido
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="email" class="pl-2">Email</label>
-                    <input required type="email" class="form-control <?= ($erroEmail === true) ? "is-invalid" : ""; ?>" name="email-cadastro" id="email" placeholder="Digite seu email">
+                    <input required type="email" class="form-control <?= ($erroEmail) ? "is-invalid" : ""; ?>" name="email-cadastro" id="email" placeholder="Digite seu email">
                     <div class="invalid-feedback pl-2">
                         Email invalido
+                    </div>
+                    <div class="d-none alert alert-warning alert-dismissible fade show mt-3 <?= ($erroEmailRep)?"d-block":""; ?>" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        Esse email já foi cadastrado
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="senha" class="pl-2">Senha</label>
-                    <input required type="password" class="form-control <?= ($erroSenha === true) ? "is-invalid" : ""; ?>" name="senha-cadastro" id="senha" placeholder="Digite seu email">
+                    <input required type="password" class="form-control <?= ($erroSenha) ? "is-invalid" : ""; ?>" name="senha-cadastro" id="senha" placeholder="Digite seu email">
                     <div class="invalid-feedback pl-2">
                         Senha invalida , a senha deve ter mais de 6 caracteres
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="senhaConf" class="pl-2">Confirme sua senha</label>
+                    <input required type="password" class="form-control <?= ($erroSenhaConf) ? "is-invalid" : ""; ?>" name="senha-cadastro-conf" id="senhaConf" placeholder="Digite novamente sua senha">
+                    <div class="invalid-feedback pl-2">
+                        As senhas não coincidem
                     </div>
                 </div>
                 <div class="form-group">
@@ -71,6 +102,6 @@ require("header/header.php");
     </div>
 </div>
 
-<?php
-require("footer/footer.php");
-?>
+</body>
+
+</html>

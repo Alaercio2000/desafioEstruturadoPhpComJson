@@ -21,18 +21,18 @@ if (!empty($_POST)) {
 
     if (!empty($_POST['descricao'])) {
         $descricao = $_POST['descricao'];
-    }else{
+    } else {
         $descricao = "";
     }
 
     if (!$erroNome && !$erroPreco && !$erroImg) {
-        $nomeImg = base64_encode(rand(0,9999)) . $_FILES['imagem']['name'];
+        $nomeImg = base64_encode(rand(0, 9999)) . $_FILES['imagem']['name'];
 
-        move_uploaded_file($_FILES['imagem']['tmp_name'] , 'img/'.$nomeImg );
+        move_uploaded_file($_FILES['imagem']['tmp_name'], 'img/' . $nomeImg);
         $nome = $_POST['nome'];
         $preco = $_POST['preco'];
 
-        newProduct($nome  , $preco , $nomeImg , $descricao);
+        newProduct($nome, $preco, $nomeImg, $descricao);
         header("Location: index.php");
     }
 }
@@ -79,9 +79,6 @@ require("header/header.php");
 </div>
 
 
-<?php require("footer/footer.php") ?>
-<style>
-    #rodape{
-        position: relative;
-    }
-</style>
+</body>
+
+</html>

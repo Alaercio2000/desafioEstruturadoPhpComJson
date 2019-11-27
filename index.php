@@ -11,16 +11,19 @@ if ($_SESSION['id']) { } else {
   header("Location: login.php");
 }
 
+$filtroValor = 1;
+
+if (!empty($_GET['filtro'])) {
+  $filtroValor = $_GET['filtro'];
+}
+
+
 require("header/header.php");
 ?>
 
 <style>
-  .conteudoTable{
-    max-height: 450px;
-    overflow: auto;
-  }
-  table tr {
-    height: 10px;
+  .conteudoTable {
+    max-height: 600px;
     overflow: auto;
   }
 </style>
@@ -29,14 +32,13 @@ require("header/header.php");
 
   <h2 class="pt-3 pb-1 text-center">Visão Geral</h2>
 
-  <form method="post" class="row justify-content-center mt-4" onChange="this.form.submit()">
-    <select name="filtro" id="filtro">
-      <option value="users">Ver Usuários</option>
-      <option value="products">Ver Produtos</option>
+  <form method="GET" class="row justify-content-center mt-4">
+    <select name="filtro" onChange="this.form.submit()">
+      <option value="1" <?= ($filtroValor == "1") ? "selected='selected'" : ""; ?>>Ver Usuários</option>
+      <option value="2" <?= ($filtroValor == "2") ? "selected='selected'" : ""; ?>>Ver Produtos</option>
     </select>
   </form>
-
-  <div class="table-resposive mt-4 d-none">
+  <div class="table-resposive mt-4 d-none <?= ($filtroValor == 1) ? "d-block" : ""; ?>">
     <table class="table table-bordered text-center conteudoTable">
       <thead>
         <tr>
@@ -53,7 +55,7 @@ require("header/header.php");
             <td><?= $user['email'] ?></td>
             <td>
               <a href="editUser.php" class="btn btn-warning m-1">Editar</a>
-              <a href="deleteUser.php" class="btn btn-danger m-1">Excluir</a>
+              <a href="deleteUser.php?id=<?= $user['id'] ?>" class="btn btn-danger m-1">Excluir</a>
             </td>
           </tr>
 
@@ -62,7 +64,7 @@ require("header/header.php");
     </table>
   </div>
 
-  <div class="table-resposive mt-3 conteudoTable">
+  <div class="table-resposive mt-3 conteudoTable d-none <?= ($filtroValor == 2) ? "d-block" : ""; ?>">
 
     <table class="table table-bordered text-center align-items-center">
       <thead>
@@ -85,7 +87,7 @@ require("header/header.php");
             <td class="pt-4 pt-md-2"><img src="<?= $product['imagem'] ?>" height="50"></td>
             <td>
               <a href="editProduct.php" class="btn btn-warning m-1">Editar</a>
-              <a href="deleteProduct.php" class="btn btn-danger m-1">Excluir</a>
+              <a href="deleteProduct.php?id=<?= $product['id'] ?>" class="btn btn-danger m-1">Excluir</a>
             </td>
           </tr>
 
@@ -96,9 +98,8 @@ require("header/header.php");
 
   </div>
 
-
-
 </div>
 
+</body>
 
-<?php require("footer/footer.php") ?>
+</html>

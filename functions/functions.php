@@ -34,12 +34,23 @@ function newUser($nome, $email, $senha)
         'senha' => password_hash($senha, PASSWORD_DEFAULT)
     ];
 
-
     array_push($createdUsers, $user);
 
     $createdUsers = json_encode($createdUsers);
 
     return file_put_contents(ARQUSER, $createdUsers);
+}
+
+// CHECK EMAIL REPEATED
+
+function checkEmail ($email){
+    $createdUsers = loadUsers();
+     foreach($createdUsers as $user){
+         if ($user['email'] == $email) {
+             return true;
+         }
+     }
+
 }
 
 // FUCNTION PARA LOGAR 
@@ -54,7 +65,6 @@ function loginUser($email, $senha)
         }
     }
 }
-
 
 // FUNCTION IN PRODUCTS
 
@@ -93,5 +103,4 @@ function newProduct($nomeProd, $preco, $imagem, $descricao)
     $createdProducts = json_encode($createdProducts);
 
     return file_put_contents(ARQPROD, $createdProducts);
-
 }
