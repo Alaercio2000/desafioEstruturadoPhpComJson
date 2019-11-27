@@ -4,7 +4,7 @@ session_start();
 
 require("functions/functions.php");
 
-if ($_SESSION['id']) { } else {
+if (!$_SESSION['id']) {
     header("Location: login.php");
 }
 
@@ -18,7 +18,7 @@ foreach ($createdUsers as $key => $user) {
         array_splice($createdUsers, $key, 1);
 
         $createdUsers = json_encode($createdUsers);
-        file_put_contents(ARQUSER , $createdUsers);
+        file_put_contents(ARQUSER, $createdUsers);
     }
 }
 

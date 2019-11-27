@@ -7,7 +7,7 @@ require("functions/functions.php");
 $users = loadUsers();
 $products = loadProducts();
 
-if ($_SESSION['id']) { } else {
+if (!$_SESSION['id']) {
   header("Location: login.php");
 }
 
@@ -86,7 +86,7 @@ require("header/header.php");
             <td class="pt-5 pt-md-4"><?= $product['preco'] ?></td>
             <td class="pt-4 pt-md-2"><img src="<?= $product['imagem'] ?>" height="50"></td>
             <td>
-              <a href="editProduct.php" class="btn btn-warning m-1">Editar</a>
+              <a href="editProduct.php?id=<?=base64_encode($product['id'])?>" class="btn btn-warning m-1">Editar</a>
               <a href="deleteProduct.php?id=<?= $product['id'] ?>" class="btn btn-danger m-1">Excluir</a>
             </td>
           </tr>

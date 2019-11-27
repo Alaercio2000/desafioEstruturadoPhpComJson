@@ -20,9 +20,9 @@
 <body>
     <?php if (!empty($_SESSION['id'])) : ?>
 
-        <nav class="navbar navbar-expand-sm bg-dark">
+        <nav class="navbar navbar-expand bg-dark">
             <div class="container">
-                <a class="navbar-brand font-weight-bold pr-4" href="index.php">Desafio Estruturado</a>
+                <a class="navbar-brand font-weight-bold pr-4 d-none d-md-block" href="index.php">Desafio Estruturado</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
