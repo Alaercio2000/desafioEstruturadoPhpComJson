@@ -54,18 +54,7 @@ if (!empty($_POST)) {
         $nome = $_POST['nome'];
         $preco = $_POST['preco'];
 
-        echo ('<pre>');
-        print_r($_POST);
-        echo ('</pre>');
-        echo ('<pre>');
-        print_r($nomeImg);
-        echo ('</pre>');
-        echo ('<pre>');
-        print_r($id);
-        echo ('</pre>');
-        die();
-
-        upProduct($nome, $preco, $nomeImg, $descricao, $id);
+        upProducts($nome, $preco, $nomeImg, $descricao, $id);
 
         header("Location: index.php?filtro=2");
     }
@@ -98,7 +87,7 @@ require("header/header.php");
             </div>
             <div class="form-group">
                 <label for="image" class="d-block">Imagem atual</label>
-                <img class="w-100" src="<?= $img ?>">
+                <img class="w-100" src="img/<?= $img ?>">
             </div>
             <div class="form-group">
                 <label for="image" class="d-block">Escolhar sua nova imagem</label>

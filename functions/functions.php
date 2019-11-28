@@ -1,11 +1,11 @@
 <?php
 
-// FUNCTION IN USERS
+// FUNCTION FOR USERS
 
 define('ARQUSER', './json/users.json');
 define('ARQPROD', './json/products.json');
 
-// CARREGAR O ARQUIVO JSON USERS
+// TO CHARGE THE ARCHIVE JSON USERS
 
 function loadUsers()
 {
@@ -14,7 +14,7 @@ function loadUsers()
     return  json_decode($usersJson, true);
 }
 
-// FUNCTION PARA CRIAR NOVOS USUÁRIOS
+// FUNCTION FOR CREATE NEW USERS
 
 function newUser($nome, $email, $senha)
 {
@@ -53,7 +53,7 @@ function checkEmail ($email){
 
 }
 
-// FUCNTION PARA LOGAR 
+// FUCNTION FOR LOG INTO 
 
 function loginUser($email, $senha)
 {
@@ -68,7 +68,7 @@ function loginUser($email, $senha)
 
 // FUNCTION IN PRODUCTS
 
-// CARREGAR O ARQUIVO JSON PRODUCTS
+// TO CHARGE THE ARCHIVE JSON PRODUCTS
 
 function loadProducts()
 {
@@ -77,7 +77,7 @@ function loadProducts()
     return  json_decode($productsJson, true);
 }
 
-// FUNCTION PARA CADASTRAR PRODUTO
+// FUNCTION FOR  CREATE PRODUCT
 
 function newProduct($nomeProd, $preco, $imagem, $descricao)
 {
@@ -95,7 +95,7 @@ function newProduct($nomeProd, $preco, $imagem, $descricao)
         'nome' => $nomeProd,
         'descricao' => $descricao,
         'preco' => $preco ,
-        'imagem' => 'img/'.$imagem
+        'imagem' => $imagem
     ];
 
     array_push($createdProducts , $product);
@@ -103,4 +103,26 @@ function newProduct($nomeProd, $preco, $imagem, $descricao)
     $createdProducts = json_encode($createdProducts);
 
     return file_put_contents(ARQPROD, $createdProducts);
+}
+
+// FUNCTION UPDATE PRODUCT
+
+function upProducts($nome , $preco , $imagem , $descricao , $id ){
+    $createdProducts = loadProducts();
+
+    $product = [
+        'id' => $id ,
+        'nome' => $nome,
+        'descricao' => $descricao,
+        'preco' => $preco ,
+        'imagem' => $imagem
+    ];
+
+    foreach($createdProducts as $key => $value){
+        if ($value['id'] == $id) {
+            $createdProducts[$key] = $product;
+            $createdProducts = json_encode($createdProducts);
+            return file_put_contents(ARQPROD , $createdProducts);
+        }
+    }
 }

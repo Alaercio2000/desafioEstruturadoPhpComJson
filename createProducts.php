@@ -38,7 +38,7 @@ if (!empty($_POST)) {
         $preco = $_POST['preco'];
 
         newProduct($nome, $preco, $nomeImg, $descricao);
-        header("Location: index.php");
+        header("Location: index.php?filtro=2");
     }
 }
 
