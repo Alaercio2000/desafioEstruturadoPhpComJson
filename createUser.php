@@ -45,7 +45,12 @@ if ($_POST) {
         $email = $_POST['email-cadastro'];
         $senha = $_POST['senha-cadastro'];
         newUser($nome, $email, $senha);
-        header("Location: index.php");
+        if (!$_SESSION['id']) {
+            $id = loginUser($email , $senha);
+            $_SESSION['id'] = $id;
+            header("Location: index.php");
+        }
+        
     }
 }
 

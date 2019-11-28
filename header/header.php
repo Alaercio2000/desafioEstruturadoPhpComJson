@@ -1,3 +1,8 @@
+<?php 
+$filtroValor = 1;
+if(!empty($_GET['filtro']))
+    $filtroValor = $_GET['filtro'];
+?>
 <!doctype html>
 <html lang="pt-br">
 
@@ -22,7 +27,7 @@
 
         <nav class="navbar navbar-expand bg-dark">
             <div class="container">
-                <a class="navbar-brand font-weight-bold pr-4 d-none d-md-block" href="index.php">Desafio Estruturado</a>
+                <a class="navbar-brand font-weight-bold pr-4 d-none d-md-block" href="index.php<?= ($filtroValor == 2)?'?filtro=2':''; ?>">Desafio Estruturado</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

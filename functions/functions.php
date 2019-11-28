@@ -66,6 +66,18 @@ function loginUser($email, $senha)
     }
 }
 
+// FUNCTION FOR NAME USER
+
+function nameUser($id){
+    $createdUsers = loadUsers();
+
+    foreach($createdUsers as $user){
+        if ($user['id'] == $id) {
+            return $user['nome'];
+        }
+    }
+}
+
 // FUNCTION IN PRODUCTS
 
 // TO CHARGE THE ARCHIVE JSON PRODUCTS

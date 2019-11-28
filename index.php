@@ -30,6 +30,8 @@ require("header/header.php");
 
 <div class="container">
 
+  <h3 class="pt-2">Olá , <?= nameUser($_SESSION['id']) ?></h3>
+
   <h2 class="pt-3 pb-1 text-center">Visão Geral</h2>
 
   <form method="GET" class="row justify-content-center mt-4">
@@ -38,8 +40,8 @@ require("header/header.php");
       <option value="2" <?= ($filtroValor == "2") ? "selected='selected'" : ""; ?>>Ver Produtos</option>
     </select>
   </form>
-  <div class="table-resposive mt-4 d-none <?= ($filtroValor == 1) ? "d-block" : ""; ?>">
-    <table class="table table-bordered text-center conteudoTable">
+  <div class="table-resposive mt-4 conteudoTable d-none <?= ($filtroValor == 1) ? "d-block" : ""; ?>">
+    <table class="table table-bordered text-center">
       <thead>
         <tr>
           <th>Nome</th>
@@ -54,7 +56,7 @@ require("header/header.php");
             <td><?= $user['nome'] ?></td>
             <td><?= $user['email'] ?></td>
             <td>
-              <a href="editUser.php" class="btn btn-warning m-1">Editar</a>
+              <a href="editUser.php?id=<?= base64_encode($user['id']) ?>" class="btn btn-warning m-1">Editar</a>
               <a href="deleteUser.php?id=<?= $user['id'] ?>" class="btn btn-danger m-1">Excluir</a>
             </td>
           </tr>
