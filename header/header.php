@@ -1,6 +1,6 @@
-<?php 
+<?php
 $filtroValor = 1;
-if(!empty($_GET['filtro']))
+if (!empty($_GET['filtro']))
     $filtroValor = $_GET['filtro'];
 ?>
 <!doctype html>
@@ -16,7 +16,7 @@ if(!empty($_GET['filtro']))
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <style>
-        .menu{
+        .menu {
             list-style: none;
         }
     </style>
@@ -25,22 +25,16 @@ if(!empty($_GET['filtro']))
 <body>
     <?php if (!empty($_SESSION['id'])) : ?>
 
-        <nav class="navbar navbar-expand bg-dark">
-            <div class="container">
-                <a class="navbar-brand font-weight-bold pr-4 d-none d-md-block" href="index.php<?= ($filtroValor == 2)?'?filtro=2':''; ?>">Desafio Estruturado</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse row justify-content-around" id="navbarNavDropdown">
-                    <li class="nav-item menu">
-                        <a class="nav-link text-light" href="createUser.php">Cadastrar Usuários</a></a>
-                    </li>
-                    <li class="nav-item menu">
-                        <a class="nav-link text-light" href="createProducts.php">Cadastrar Produtos</a>
-                    </li>
-                    <li class="nav-item menu">
-                        <a class="nav-link text-light" href="logout.php">Deslogar</a>
-                    </li>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand font-weight-bold px-0 px-lg-5 px-md-3 text-primary" href="index.php<?= ($filtroValor == 2) ? '?filtro=2' : ''; ?>">Desafio Estruturado</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav w-100 d-flex justify-content-around">
+                <a class="nav-link" href="createUser.php">Cadastrar Usuários</a>
+                <a class="nav-link" href="createProducts.php">Cadastrar Produtos</a>
+                <a class="nav-link" href="logout.php">Deslogar</a>
                 </div>
             </div>
         </nav>
