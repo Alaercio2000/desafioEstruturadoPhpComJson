@@ -9,7 +9,7 @@ $erroEmailRep = false;
 $erroSenha = false;
 $erroNome = false;
 $erroSenhaConf = false;
-$check = false;
+$checkEmail = false;
 
 if ($_POST) {
 
@@ -32,10 +32,10 @@ if ($_POST) {
     }
 
     if (!$erroEmail) {
-        $check =  checkEmail($_POST['email-cadastro']);
+        $checkEmail =  checkEmail($_POST['email-cadastro']);
     }
 
-    if ($check) {
+    if ($checkEmail) {
         $erroEmailRep = true;
     }
 
@@ -101,7 +101,7 @@ require("header/header.php");
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary w-100 mt-3">Entrar</button>
                 </div>
-                <h5 class="py-4 pl-3">Já tem cadastro ?<a class="pl-2" href="login.php">Login</a></h5>
+                <h5 class="py-4 pl-3 <?= (!empty($_SESSION['id']))?"d-none":""; ?>">Já tem cadastro ?<a class="pl-2" href="login.php">Login</a></h5>
             </form>
         </div>
     </div>

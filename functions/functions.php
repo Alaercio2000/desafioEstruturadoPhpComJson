@@ -1,11 +1,11 @@
 <?php
 
-// FUNCTION FOR USERS
+// FUNÇÕES FEITAS PARA OS USUÁRIOS
 
 define('ARQUSER', './json/users.json');
 define('ARQPROD', './json/products.json');
 
-// TO CHARGE THE ARCHIVE JSON USERS
+// FUNÇÃO PARA CARREGAR OS USUÁRIOS CADASTRADO
 
 function loadUsers()
 {
@@ -14,7 +14,7 @@ function loadUsers()
     return  json_decode($usersJson, true);
 }
 
-// FUNCTION FOR CREATE NEW USERS
+// FUNÇÃO PARA CADASTRO DE USUÁRIO
 
 function newUser($nome, $email, $senha)
 {
@@ -41,7 +41,7 @@ function newUser($nome, $email, $senha)
     return file_put_contents(ARQUSER, $createdUsers);
 }
 
-// CHECK EMAIL REPEATED
+// VERIFICANDO SE O EMAIL DO USUÁRIO NÃO É REPETIDO
 
 function checkEmail ($email){
     $createdUsers = loadUsers();
@@ -53,7 +53,7 @@ function checkEmail ($email){
 
 }
 
-// FUCNTION FOR LOG INTO 
+// FUNÇÃO PARA VALIDAR A ENTRADA DO USUÁRIO
 
 function loginUser($email, $senha)
 {
@@ -66,7 +66,28 @@ function loginUser($email, $senha)
     }
 }
 
-// FUNCTION FOR NAME USER
+// FUNÇÃO PARA EDITAR USUÁRIO
+
+function updateUser($nome , $email , $senha , $id){
+    $createdUsers = loadUsers();
+
+    $user = [
+        'id' => $id , 
+        'nome' => $nome ,
+        'email' => $email ,
+        'senha' => $senha
+    ];
+
+    foreach($createdUsers as $key => $users){
+        if ($users['id'] == $id) {
+            $createdUsers[$key] = $user;
+            $createdUsers = json_encode($createdUsers);
+            return file_put_contents(ARQUSER , $createdUsers);
+        }
+    }
+}
+
+// FUNÇÃO PARA PEGAR NOME DO USUÁRIO QUE ENTROU
 
 function nameUser($id){
     $createdUsers = loadUsers();
@@ -78,9 +99,9 @@ function nameUser($id){
     }
 }
 
-// FUNCTION IN PRODUCTS
+// FUNÇÕES EM PRODUTOS
 
-// TO CHARGE THE ARCHIVE JSON PRODUCTS
+// CARREGAR ARQUIVOS JSON COM TODOS OS PRODUTOS
 
 function loadProducts()
 {
@@ -89,7 +110,7 @@ function loadProducts()
     return  json_decode($productsJson, true);
 }
 
-// FUNCTION FOR  CREATE PRODUCT
+// FUNÇÃO PARA CADASTRAR UM NOVO PRODUTO
 
 function newProduct($nomeProd, $preco, $imagem, $descricao)
 {
@@ -117,7 +138,7 @@ function newProduct($nomeProd, $preco, $imagem, $descricao)
     return file_put_contents(ARQPROD, $createdProducts);
 }
 
-// FUNCTION UPDATE PRODUCT
+// FUNÇÃO PARA EDITAR PRODUTO
 
 function upProducts($nome , $preco , $imagem , $descricao , $id ){
     $createdProducts = loadProducts();

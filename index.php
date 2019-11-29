@@ -85,7 +85,7 @@ require("header/header.php");
           <tr>
             <td class="pt-5 pt-md-4"><?= $product['nome'] ?></td>
             <td class="pt-5 pt-md-4"><?= $product['descricao'] ?></td>
-            <td class="pt-5 pt-md-4"><?= $product['preco'] ?></td>
+            <td class="pt-5 pt-md-4">R$ <?= $product['preco'] ?></td>
             <td class="pt-4 pt-md-2"><img src="img/<?= $product['imagem'] ?>" height="50"></td>
             <td>
               <a href="editProduct.php?id=<?=base64_encode($product['id'])?>" class="btn btn-warning m-1">Editar</a>
