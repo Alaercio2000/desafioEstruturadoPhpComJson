@@ -26,9 +26,15 @@ require("header/header.php");
     max-height: 600px;
     overflow: auto;
   }
+  .corpo{
+    overflow: hidden;
+  }
+  #tableProduct{
+    min-width: 1000px;
+  }
 </style>
 
-<div class="container">
+<div class="container corpo">
 
   <h3 class="pt-2">Olá , <?= nameUser($_SESSION['id']) ?></h3>
 
@@ -68,7 +74,7 @@ require("header/header.php");
 
   <div class="table-resposive mt-3 conteudoTable d-none <?= ($filtroValor == 2) ? "d-block" : ""; ?>">
 
-    <table class="table table-bordered text-center align-items-center">
+    <table id="tableProduct" class="table table-bordered text-center align-items-center">
       <thead>
         <tr>
           <th>Nome</th>
@@ -83,12 +89,13 @@ require("header/header.php");
         <?php foreach ($products as $product) : ?>
 
           <tr>
-            <td class="pt-5 pt-md-4"><?= $product['nome'] ?></td>
-            <td class="pt-5 pt-md-4"><?= $product['descricao'] ?></td>
-            <td class="pt-5 pt-md-4">R$ <?= $product['preco'] ?></td>
-            <td class="pt-4 pt-md-2"><img src="img/<?= $product['imagem'] ?>" height="50"></td>
-            <td>
-              <a href="editProduct.php?id=<?=base64_encode($product['id'])?>" class="btn btn-warning m-1">Editar</a>
+            <td class="pt-4 px-1"><?= $product['nome'] ?></td>
+            <td class="pt-4 px-1"><?=mb_strimwidth($product['descricao'] , 0 , 50 , "...")?></td>
+            <td class="pt-4 px-1">R$ <?= $product['preco'] ?></td>
+            <td class="pt-3 px-1"><img src="img/<?= $product['imagem'] ?>" height="50"></td>
+            <td class="buttonResposive pt-3">
+              <a class="btn btn-info" href="showProduct.php?id=<?= base64_encode($product['id']) ?>">Ver Mais</a>
+              <a href="editProduct.php?id=<?= base64_encode($product['id']) ?>" class="btn btn-warning m-1">Editar</a>
               <a href="deleteProduct.php?id=<?= $product['id'] ?>" class="btn btn-danger m-1">Excluir</a>
             </td>
           </tr>
@@ -97,7 +104,6 @@ require("header/header.php");
 
       </tbody>
     </table>
-
   </div>
 
 </div>
