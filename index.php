@@ -46,7 +46,7 @@ require("header/header.php");
       <option value="2" <?= ($filtroValor == "2") ? "selected='selected'" : ""; ?>>Ver Produtos</option>
     </select>
   </form>
-  <div class="table-resposive mt-4 conteudoTable d-none <?= ($filtroValor == 1) ? "d-block" : ""; ?>">
+  <div class="table-resposive mt-4 conteudoTable d-none <?= ($filtroValor != 2) ? "d-block" : ""; ?>">
     <table class="table table-bordered text-center">
       <thead>
         <tr>
