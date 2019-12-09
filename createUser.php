@@ -2,6 +2,10 @@
 
 session_start();
 
+$email = "";
+$senha = "";
+$nome = "";
+
 require("functions/functions.php");
 
 $erroEmail = false;
@@ -12,6 +16,10 @@ $erroSenhaConf = false;
 $checkEmail = false;
 
 if ($_POST) {
+
+    $nome = $_POST['nome-cadastro'];
+    $email = $_POST['email-cadastro'];
+    $senha = $_POST['senha-cadastro'];
 
     $checkEmail = loadUsers();
 
@@ -33,24 +41,19 @@ if ($_POST) {
 
     if (!$erroEmail) {
         $checkEmail =  checkEmail($_POST['email-cadastro']);
-    }
-
-    if ($checkEmail) {
-        $erroEmailRep = true;
+        if ($checkEmail) {
+            $erroEmailRep = true;
+        }
     }
 
 
     if (!$erroNome && !$erroEmail && !$erroSenha && !$erroSenhaConf && !$erroEmailRep) {
-        $nome = $_POST['nome-cadastro'];
-        $email = $_POST['email-cadastro'];
-        $senha = $_POST['senha-cadastro'];
         newUser($nome, $email, $senha);
         if (!$_SESSION['id']) {
-            $id = loginUser($email , $senha);
+            $id = loginUser($email, $senha);
             $_SESSION['id'] = $id;
             header("Location: index.php");
         }
-        
     }
 }
 
@@ -65,18 +68,18 @@ require("header/header.php");
 
                 <div class="form-group">
                     <label for="nome" class="pl-2">Nome</label>
-                    <input required type="nome" class="form-control <?= ($erroNome) ? "is-invalid" : ""; ?>" name="nome-cadastro" id="nome" placeholder="Digite seu nome">
+                    <input required type="nome" class="form-control <?= ($erroNome) ? "is-invalid" : ""; ?>" name="nome-cadastro" id="nome" placeholder="Digite seu nome" value="<?= $nome ?>">
                     <div class="invalid-feedback pl-2">
                         Nome invalido
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="email" class="pl-2">Email</label>
-                    <input required type="email" class="form-control <?= ($erroEmail) ? "is-invalid" : ""; ?>" name="email-cadastro" id="email" placeholder="Digite seu email">
+                    <input required type="email" class="form-control <?= ($erroEmail) ? "is-invalid" : ""; ?>" name="email-cadastro" id="email" placeholder="Digite seu email" value="<?= $email ?>">
                     <div class="invalid-feedback pl-2">
                         Email invalido
                     </div>
-                    <div class="d-none alert alert-warning alert-dismissible fade show mt-3 <?= ($erroEmailRep)?"d-block":""; ?>" role="alert">
+                    <div class="d-none alert alert-warning alert-dismissible fade show mt-3 <?= ($erroEmailRep) ? "d-block" : ""; ?>" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
@@ -86,7 +89,8 @@ require("header/header.php");
                 </div>
                 <div class="form-group">
                     <label for="senha" class="pl-2">Senha</label>
-                    <input required type="password" class="form-control <?= ($erroSenha) ? "is-invalid" : ""; ?>" name="senha-cadastro" id="senha" placeholder="Digite seu email">
+                    <input required type="password" class="form-control <?= ($erroSenha) ? "is-invalid" : ""; ?>" name="senha-cadastro" id="senha" placeholder="Digite seu email" value="<?= $senha ?>">
+                    <small id="senha" class="form-text text-muted pl-2">A senha deve conter mais de 6 caracteres</small>
                     <div class="invalid-feedback pl-2">
                         Senha invalida , a senha deve ter mais de 6 caracteres
                     </div>
@@ -101,7 +105,7 @@ require("header/header.php");
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary w-100 mt-3">Entrar</button>
                 </div>
-                <h5 class="py-4 pl-3 <?= (!empty($_SESSION['id']))?"d-none":""; ?>">Já tem cadastro ?<a class="pl-2" href="login.php">Login</a></h5>
+                <h5 class="py-4 pl-3 <?= (!empty($_SESSION['id'])) ? "d-none" : ""; ?>">Já tem cadastro ?<a class="pl-2" href="login.php">Login</a></h5>
             </form>
         </div>
     </div>

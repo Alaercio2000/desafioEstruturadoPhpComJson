@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 if (!$_SESSION['id']) {
@@ -7,6 +7,11 @@ if (!$_SESSION['id']) {
 
 $erroNome = false;
 $erroPreco = false;
+$erroPrecoNum = false;
+
+$nome = "";
+$descricao = "";
+$preco = "";
 
 require("functions/functions.php");
 
@@ -22,7 +27,6 @@ foreach ($createdProduct as $product) {
         if (!empty($product['descricao'])) {
             $descricao = $product['descricao'];
         }
-
     }
 }
 
@@ -30,29 +34,30 @@ foreach ($createdProduct as $product) {
 
 if (!empty($_POST)) {
 
-    if (empty($_POST['nome'])) {
+    $nome = $_POST['nome'];
+    $preco = $_POST['preco'];
+    $descricao = $_POST['descricao'];
+
+    if (empty($nome)) {
         $erroNome = true;
     }
 
-    if (empty($_POST['preco'])) {
+    if (empty($preco)) {
         $erroPreco = true;
-    }
-
-    if (!empty($_POST['descricao'])) {
-        $descricao = $_POST['descricao'];
     } else {
-        $descricao = "";
+        $preco = str_replace(",", ".", $preco);
+        if (!is_numeric($preco)) {
+            $erroPrecoNum = true;
+        }
     }
 
-    if (!$erroNome && !$erroPreco) {
+    if (!$erroNome && !$erroPreco && !$erroPrecoNum) {
         if (empty($_FILES['imagem']['tmp_name'])) {
             $nomeImg = $img;
-        }else {
+        } else {
             $nomeImg = base64_encode(rand(0, 9999)) . $_FILES['imagem']['name'];
             move_uploaded_file($_FILES['imagem']['tmp_name'], 'img/' . $nomeImg);
         }
-        $nome = $_POST['nome'];
-        $preco = $_POST['preco'];
 
         upProducts($nome, $preco, $nomeImg, $descricao, $id);
 
@@ -80,9 +85,15 @@ require("header/header.php");
             </div>
             <div class="form-group">
                 <label for="priceProduct">Preço</label>
-                <input required type="number" class="form-control <?= ($erroPreco === true) ? "is-invalid" : ""; ?>" name="preco" id="priceProduct" placeholder="Digite o preço do produto" value="<?= $preco ?>">
+                <input required type="text" pattern="[0-9.,]{1,}" class="form-control <?= ($erroPreco === true) ? "is-invalid" : ""; ?>" name="preco" id="priceProduct" placeholder="Digite o preço do produto" value="<?= $preco ?>">
                 <div class="invalid-feedback pl-2">
                     Digite o preço do seu produto
+                </div>
+                <div class="d-none mt-3 alert alert-danger alert-dismissible fade show <?= ($erroPrecoNum) ? "d-block" : "" ?>" role="alert">
+                    Digite um preço valido
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
             <div class="form-group">

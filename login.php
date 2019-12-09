@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+$email = "";
+$senha = "";
+
 if (!empty($_SESSION['id'])) {
     header("Location: index.php");
 }
@@ -13,6 +16,9 @@ $erroSenha = false;
 
 if ($_POST) {
 
+    $email = $_POST['email-login'];
+    $senha = $_POST['senha-login'];
+
     if (empty($_POST['email-login'])) {
         $erroEmail = true;
     }
@@ -22,9 +28,6 @@ if ($_POST) {
     }
 
     if (!$erroEmail && !$erroSenha) {
-
-        $email = $_POST['email-login'];
-        $senha = $_POST['senha-login'];
 
         $id = loginUser($email, $senha);
 
@@ -48,20 +51,20 @@ require("header/header.php");
             <form method="post">
                 <div class="form-group">
                     <label for="email" class="pl-2">Email</label>
-                    <input required type="email" class="form-control <?= ($erroEmail) ? "is-invalid" : ""; ?>" name="email-login" id="email" placeholder="Digite seu email">
+                    <input required type="email" class="form-control <?= ($erroEmail) ? "is-invalid" : ""; ?>" name="email-login" id="email" placeholder="Digite seu email" value="<?= $email ?>">
                     <div class="invalid-feedback pl-2">
                         Email invalido
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="senha" class="pl-2">Senha</label>
-                    <input required type="password" class="form-control <?= ($erroSenha) ? "is-invalid" : ""; ?>" name="senha-login" id="senha" placeholder="Digite seu email">
+                    <input required type="password" class="form-control <?= ($erroSenha) ? "is-invalid" : ""; ?>" name="senha-login" id="senha" placeholder="Digite sua senha" value="<?= $senha ?>">
                     <div class="invalid-feedback pl-2">
                         Senha deve ter mais de 6 caracteres
                     </div>
                 </div>
                 <div class="d-none alert alert-danger alert-dismissible fade show <?= ($erroLogin) ? "d-block" : "" ?>" role="alert">
-                    Email ou senha invalido
+                    Email e/ou senha invalido
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

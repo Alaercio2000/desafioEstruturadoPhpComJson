@@ -91,7 +91,7 @@ require("header/header.php");
           <tr>
             <td class="pt-4 px-1"><?= $product['nome'] ?></td>
             <td class="pt-4 px-1"><?=mb_strimwidth($product['descricao'] , 0 , 50 , "...")?></td>
-            <td class="pt-4 px-1">R$ <?= $product['preco'] ?></td>
+            <td class="pt-4 px-1">R$ <?= str_replace(".",",",$product['preco']) ?></td>
             <td class="pt-3 px-1"><img src="img/<?= $product['imagem'] ?>" height="50"></td>
             <td class="buttonResposive pt-3">
               <a class="btn btn-info" href="showProduct.php?id=<?= base64_encode($product['id']) ?>">Ver Mais</a>

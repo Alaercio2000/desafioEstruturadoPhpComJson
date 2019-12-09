@@ -118,6 +118,7 @@ require("header/header.php");
                 <div class="form-group">
                     <label for="senha" class="pl-2">Nova senha</label>
                     <input type="password" class="form-control <?= ($erroSenha) ? "is-invalid" : ""; ?>" name="senha" id="senha" placeholder="Digite sua nova senha">
+                    <small id="senha" class="form-text text-muted pl-2">A senha deve conter mais de 6 caracteres</small>
                     <div class="invalid-feedback pl-2">
                         Senha invalida , a senha deve ter mais de 6 caracteres
                     </div>
