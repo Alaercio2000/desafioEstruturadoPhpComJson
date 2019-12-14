@@ -47,7 +47,7 @@ require("header/header.php");
 <div class="container mt-5">
     <h3 class="text-center py-5">Seja Bem-vindo</h3>
     <div class="row justify-content-center">
-        <div class="col-6">
+        <div class="col-12 col-sm-8 col-lg-6">
             <form method="post">
                 <div class="form-group">
                     <label for="email" class="pl-2">Email</label>
